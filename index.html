@@ -8,167 +8,147 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:        #020d1c;
-    --navy:      #05193a;
-    --blue:      #0d3068;
-    --blue-mid:  #1a5bbf;
-    --gold:      #f0c040;
-    --orange:    #e08820;
-    --white:     #ffffff;
-    --dim:       rgba(255,255,255,0.45);
+    --bg:       #020d1c;
+    --navy:     #05193a;
+    --blue:     #0d3068;
+    --blue-hi:  #1a5bbf;
+    --gold:     #f0c040;
+    --orange:   #e08820;
+    --white:    #ffffff;
+    --dim:      rgba(255,255,255,.45);
   }
 
-  html, body {
-    height: 100%;
-  }
+  html, body { height: 100%; overflow: hidden; }
 
   body {
     background: var(--bg);
-    background-image:
-      radial-gradient(ellipse 80% 60% at 50% 50%, #061d3a 0%, #020d1c 70%);
     color: var(--white);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    display: flex;
+  }
+
+  /* ─── SCREENS ─────────────────────────────── */
+  .screen { display: none; position: fixed; inset: 0; }
+  .screen.active { display: flex; }
+
+  /* ─── INTRO ───────────────────────────────── */
+  #screen-intro {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding: 24px 16px;
-    overflow-x: hidden;
-  }
-
-  /* ─── SCREENS ─────────────────────────────────────────── */
-  .screen { display: none; width: 100%; max-width: 960px; flex-direction: column; align-items: center; }
-  .screen.active { display: flex; }
-
-  /* ─── INTRO ───────────────────────────────────────────── */
-  #screen-intro {
-    gap: 48px;
+    gap: 40px;
     text-align: center;
-    animation: fadeIn .5s ease;
+    padding: 32px;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse 90% 70% at 50% 50%, #071e3d 0%, #020d1c 70%);
+    animation: fadeUp .5s ease;
   }
 
   .intro-eyebrow {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 5px;
     text-transform: uppercase;
     color: var(--gold);
   }
 
   .intro-title {
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: clamp(3.5rem, 12vw, 7rem);
     font-weight: 800;
-    letter-spacing: -2px;
-    line-height: 1;
-    /* WWTBAM gold-to-white gradient on text */
-    background: linear-gradient(160deg, #ffffff 30%, var(--gold) 100%);
+    letter-spacing: -3px;
+    line-height: .95;
+    background: linear-gradient(150deg, #fff 20%, var(--gold) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .intro-sub {
-    font-size: 1rem;
+    font-size: clamp(.85rem, 2vw, 1rem);
     color: var(--dim);
-    letter-spacing: 0.5px;
   }
 
-  /* ─── WWTBAM BUTTON ───────────────────────────────────── */
-  .btn-wwtbam {
+  /* hexagonal button */
+  .btn-hex {
     position: relative;
-    display: inline-block;
     background: linear-gradient(180deg, #1a4fa8 0%, #0a2c6d 100%);
     border: 2px solid #2a6dcc;
     color: var(--white);
-    font-size: 0.85rem;
+    font-size: .8rem;
     font-weight: 700;
     letter-spacing: 4px;
     text-transform: uppercase;
-    padding: 18px 56px;
+    padding: 17px 56px;
     cursor: pointer;
-    clip-path: polygon(16px 0%, calc(100% - 16px) 0%, 100% 50%, calc(100% - 16px) 100%, 16px 100%, 0% 50%);
+    clip-path: polygon(18px 0%, calc(100% - 18px) 0%, 100% 50%, calc(100% - 18px) 100%, 18px 100%, 0% 50%);
     transition: filter .2s, transform .1s;
-    text-shadow: 0 1px 4px rgba(0,0,0,.5);
   }
-
-  .btn-wwtbam::before {
+  .btn-hex::before {
     content: '';
     position: absolute;
     inset: 3px;
     clip-path: inherit;
-    background: linear-gradient(180deg, rgba(255,255,255,.08) 0%, transparent 60%);
+    background: linear-gradient(180deg, rgba(255,255,255,.1) 0%, transparent 60%);
     pointer-events: none;
   }
+  .btn-hex:hover { filter: brightness(1.3); transform: scale(1.03); }
+  .btn-hex:active { transform: scale(.97); }
 
-  .btn-wwtbam:hover {
-    filter: brightness(1.25);
-    transform: scale(1.02);
+  /* ─── GAME ────────────────────────────────── */
+  #screen-game {
+    flex-direction: column;
   }
 
-  .btn-wwtbam:active { transform: scale(0.98); }
-
-  /* ─── GAME ────────────────────────────────────────────── */
-  #screen-game { gap: 28px; }
-
-  /* Progress */
-  .top-bar {
-    width: 100%;
+  /* Slim overlay bar at top */
+  .hud {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+    padding: 14px 20px 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-items: center;
+    gap: 8px;
+    /* fade-to-transparent gradient so images show below */
+    background: linear-gradient(to bottom, rgba(2,13,28,.85) 0%, transparent 100%);
+    padding-bottom: 24px;
   }
 
-  .round-counter {
-    font-size: 0.65rem;
+  .round-lbl {
+    font-size: .6rem;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold);
   }
 
-  .progress-track {
-    width: 100%;
-    max-width: 600px;
+  .prog-track {
+    width: min(500px, 60vw);
     height: 2px;
-    background: rgba(255,255,255,.1);
+    background: rgba(255,255,255,.12);
   }
-
-  .progress-fill {
+  .prog-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--blue-mid), var(--gold));
-    transition: width .6s ease;
+    background: linear-gradient(90deg, var(--blue-hi), var(--gold));
+    transition: width .55s ease;
   }
 
-  /* Images grid */
-  .images-grid {
+  /* Images — fill viewport */
+  .images-row {
+    display: flex;
+    flex: 1;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    height: 100%;
   }
 
-  /* WWTBAM answer card */
   .img-card {
     position: relative;
+    flex: 1;
     cursor: pointer;
     overflow: hidden;
-    aspect-ratio: 4/3;
-    background: var(--blue);
-    /* WWTBAM hex-ish clipping — subtle angled corners */
-    clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 0, 100% 100%, 0 100%);
-    border: 2px solid #1a4b9c;
-    transition: border-color .15s, filter .15s;
+    border: 0;
+    transition: filter .15s;
   }
 
-  .img-card::after {
-    /* inner shine line */
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 40%;
-    background: linear-gradient(180deg, rgba(255,255,255,.07) 0%, transparent 100%);
-    pointer-events: none;
-  }
+  /* Thin separator between A and B */
+  .img-card:first-child { border-right: 2px solid rgba(26,91,191,.6); }
 
   .img-card img {
     width: 100%; height: 100%;
@@ -177,93 +157,157 @@
     transition: filter .3s;
   }
 
-  /* Label A / B — WWTBAM style pill */
-  .card-label {
+  /* Bottom gradient + label */
+  .img-card::after {
+    content: '';
     position: absolute;
-    bottom: 12px;
-    left: 12px;
-    background: linear-gradient(180deg, #1a4fa8 0%, #0a2c6d 100%);
-    border: 1.5px solid #2a6dcc;
-    color: var(--gold);
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    padding: 4px 12px;
-    clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0% 50%);
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(to top, rgba(2,13,28,.75) 0%, transparent 100%);
     pointer-events: none;
   }
 
-  /* Hover state */
-  .img-card:not(.locked):hover {
+  .card-lbl {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: linear-gradient(180deg, #1a4fa8 0%, #0a2c6d 100%);
+    border: 1.5px solid #2a6dcc;
+    color: var(--gold);
+    font-size: .65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 5px 16px;
+    clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0% 50%);
+    pointer-events: none;
+  }
+
+  /* hover */
+  .img-card:not(.locked):hover img { filter: brightness(1.1); }
+  .img-card:not(.locked):hover .card-lbl {
+    background: linear-gradient(180deg, #2a6fe0 0%, #1040a0 100%);
     border-color: var(--gold);
-    filter: brightness(1.08);
   }
 
-  /* Selected / locked — WWTBAM orange lock-in */
-  .img-card.selected {
-    border-color: var(--orange);
-    box-shadow: 0 0 0 4px rgba(224,136,32,.25), inset 0 0 40px rgba(224,136,32,.15);
+  /* selected — orange lock-in glow */
+  .img-card.selected img { filter: brightness(.75); }
+  .img-card.selected::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: rgba(224,136,32,.18);
+    box-shadow: inset 0 0 0 4px var(--orange);
+    pointer-events: none;
   }
-
-  .img-card.selected img { filter: brightness(.85); }
+  .img-card.selected .card-lbl {
+    background: linear-gradient(180deg, var(--orange) 0%, #a05010 100%);
+    border-color: var(--gold);
+  }
 
   /* Loader */
   .img-loader {
     position: absolute;
     inset: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--navy);
-    font-size: 0.6rem;
+    color: var(--dim);
+    font-size: .6rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--dim);
   }
 
-  /* ─── END ─────────────────────────────────────────────── */
+  /* Mobile: stack vertically */
+  @media (max-width: 640px) {
+    .images-row { flex-direction: column; }
+    .img-card:first-child { border-right: 0; border-bottom: 2px solid rgba(26,91,191,.6); }
+    .prog-track { width: 70vw; }
+  }
+
+  /* ─── END ─────────────────────────────────── */
   #screen-end {
-    gap: 36px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
     text-align: center;
-    animation: fadeIn .6s ease;
+    padding: 40px 28px;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse 80% 60% at 50% 50%, #071e3d 0%, #020d1c 70%);
+    animation: fadeUp .5s ease;
+    overflow-y: auto;
+  }
+
+  .end-eyebrow {
+    font-size: .6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 20px;
   }
 
   .end-score {
-    font-size: clamp(5rem, 18vw, 9rem);
+    font-size: clamp(5rem, 20vw, 10rem);
     font-weight: 800;
-    letter-spacing: -4px;
+    letter-spacing: -5px;
     line-height: 1;
-    background: linear-gradient(160deg, #ffffff 20%, var(--gold) 100%);
+    background: linear-gradient(150deg, #fff 10%, var(--gold) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 4px;
   }
 
-  .end-score sup {
-    font-size: .35em;
+  .end-score-denom {
+    font-size: .28em;
     letter-spacing: -1px;
-    -webkit-text-fill-color: rgba(255,255,255,.3);
+    -webkit-text-fill-color: rgba(255,255,255,.25);
   }
 
-  .end-message {
-    font-size: clamp(.95rem, 2.5vw, 1.25rem);
+  .end-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin: 28px auto;
+    opacity: .6;
+  }
+
+  .end-headline {
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    max-width: 560px;
+    margin: 0 auto;
+    /* gold highlight on key phrase */
+  }
+
+  .end-headline em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .end-tagline {
+    font-size: clamp(.8rem, 1.8vw, .95rem);
     color: var(--dim);
-    max-width: 480px;
-    line-height: 1.65;
-    letter-spacing: .2px;
+    margin-top: 14px;
+    letter-spacing: .5px;
+    max-width: 400px;
   }
 
-  /* ─── ANIMATIONS ──────────────────────────────────────── */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+  .end-replay {
+    margin-top: 48px;
+  }
+
+  /* ─── ANIMATIONS ──────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── MOBILE ──────────────────────────────────────────── */
-  @media (max-width: 580px) {
-    .images-grid { grid-template-columns: 1fr; }
-    .img-card { aspect-ratio: 16/10; }
-    .intro-title { letter-spacing: -1px; }
   }
 </style>
 </head>
@@ -274,144 +318,134 @@
   <p class="intro-eyebrow">Architettura di Interni</p>
   <h1 class="intro-title">Real o AI?</h1>
   <p class="intro-sub">Quale delle due è una fotografia?</p>
-  <button class="btn-wwtbam" onclick="startGame()">Inizia</button>
+  <button class="btn-hex" onclick="startGame()">Inizia</button>
 </div>
 
 <!-- GAME -->
 <div id="screen-game" class="screen">
-  <div class="top-bar">
-    <span class="round-counter" id="round-counter">1 / 6</span>
-    <div class="progress-track">
-      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  <div class="hud">
+    <span class="round-lbl" id="round-lbl">1 / 6</span>
+    <div class="prog-track">
+      <div class="prog-fill" id="prog-fill" style="width:0%"></div>
     </div>
   </div>
 
-  <div class="images-grid" id="images-grid">
+  <div class="images-row" id="images-row">
     <div class="img-card" id="card-left" onclick="choose('left')">
-      <div class="img-loader" id="loader-left">·</div>
-      <img id="img-left" src="" alt="" style="display:none" onload="onImgLoad('left')">
-      <div class="card-label">A</div>
+      <div class="img-loader" id="ldr-left">·</div>
+      <img id="img-left" src="" alt="" style="display:none" onload="imgReady('left')">
+      <div class="card-lbl">A</div>
     </div>
     <div class="img-card" id="card-right" onclick="choose('right')">
-      <div class="img-loader" id="loader-right">·</div>
-      <img id="img-right" src="" alt="" style="display:none" onload="onImgLoad('right')">
-      <div class="card-label">B</div>
+      <div class="img-loader" id="ldr-right">·</div>
+      <img id="img-right" src="" alt="" style="display:none" onload="imgReady('right')">
+      <div class="card-lbl">B</div>
     </div>
   </div>
 </div>
 
 <!-- END -->
 <div id="screen-end" class="screen">
-  <div class="end-score" id="end-score">0<sup>/6</sup></div>
-  <p class="end-message">non importa quale immagine sia stata generata con AI,<br>importa che ci hai dovuto pensare.</p>
-  <button class="btn-wwtbam" onclick="startGame()">Rigioca</button>
+  <p class="end-eyebrow">Fine gioco</p>
+
+  <div class="end-score" id="end-score">
+    0<span class="end-score-denom">/6</span>
+  </div>
+
+  <div class="end-divider"></div>
+
+  <h2 class="end-headline">
+    Non importa quale immagine<br>
+    sia stata <em>generata dall'AI</em>.<br>
+    Importa che ci hai dovuto pensare.
+  </h2>
+  <p class="end-tagline">Il confine è già scomparso. Questa era solo pratica.</p>
+
+  <div class="end-replay">
+    <button class="btn-hex" onclick="startGame()">Rigioca</button>
+  </div>
 </div>
 
 <script>
 const ROUNDS = [
-  {
-    ai:   'images/04_simmetrica.png',
-    real: 'https://images.unsplash.com/photo-1757605327126-9baefea3348b?w=900&q=85&fit=crop'
-  },
-  {
-    ai:   'images/05_angolo-architettonico.png',
-    real: 'https://images.unsplash.com/photo-1750639258774-9a714379a093?w=900&q=85&fit=crop'
-  },
-  {
-    ai:   'images/06_attraverso-soglia.png',
-    real: 'https://images.unsplash.com/photo-1724765440530-e3954ac2e61d?w=900&q=85&fit=crop'
-  },
-  {
-    ai:   'images/07_high-angle.png',
-    real: 'https://images.unsplash.com/photo-1727399535326-65e21b522ccb?w=900&q=85&fit=crop'
-  },
-  {
-    ai:   'images/09_dettaglio-architettonico.png',
-    real: 'https://images.unsplash.com/photo-1684846416931-dddf8cbfc2ad?w=900&q=85&fit=crop'
-  },
-  {
-    ai:   'images/10_macro-materiale.png',
-    real: 'https://images.unsplash.com/photo-1637822412454-085098b4c8c0?w=900&q=85&fit=crop'
-  }
+  { ai: 'images/04_simmetrica.png',          real: 'https://images.unsplash.com/photo-1757605327126-9baefea3348b?w=1200&q=85&fit=crop&crop=center' },
+  { ai: 'images/05_angolo-architettonico.png', real: 'https://images.unsplash.com/photo-1750639258774-9a714379a093?w=1200&q=85&fit=crop&crop=center' },
+  { ai: 'images/06_attraverso-soglia.png',    real: 'https://images.unsplash.com/photo-1724765440530-e3954ac2e61d?w=1200&q=85&fit=crop&crop=center' },
+  { ai: 'images/07_high-angle.png',           real: 'https://images.unsplash.com/photo-1727399535326-65e21b522ccb?w=1200&q=85&fit=crop&crop=center' },
+  { ai: 'images/09_dettaglio-architettonico.png', real: 'https://images.unsplash.com/photo-1684846416931-dddf8cbfc2ad?w=1200&q=85&fit=crop&crop=center' },
+  { ai: 'images/10_macro-materiale.png',      real: 'https://images.unsplash.com/photo-1637822412454-085098b4c8c0?w=1200&q=85&fit=crop&crop=center' }
 ];
 
-const state = { round: 0, score: 0, order: [], realSide: null, locked: false };
+const st = { round: 0, score: 0, order: [], realSide: null, locked: false };
 
-function shuffle(a) {
+const shuffle = a => {
   const b = [...a];
   for (let i = b.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [b[i], b[j]] = [b[j], b[i]];
   }
   return b;
-}
+};
 
-function show(id) {
+const show = id => {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-}
+};
 
 function startGame() {
-  state.round = 0;
-  state.score = 0;
-  state.locked = false;
-  state.order = shuffle([0,1,2,3,4,5]);
+  st.round = 0; st.score = 0; st.locked = false;
+  st.order = shuffle([0,1,2,3,4,5]);
   show('screen-game');
   loadRound();
 }
 
 function loadRound() {
-  state.locked = false;
-  const data = ROUNDS[state.order[state.round]];
-  const n = state.round + 1;
-  const total = ROUNDS.length;
+  st.locked = false;
+  const data = ROUNDS[st.order[st.round]];
+  const n = st.round + 1, tot = ROUNDS.length;
 
-  document.getElementById('round-counter').textContent = `${n} / ${total}`;
-  document.getElementById('progress-fill').style.width = `${((n - 1) / total) * 100}%`;
+  document.getElementById('round-lbl').textContent = `${n} / ${tot}`;
+  document.getElementById('prog-fill').style.width = `${((n - 1) / tot) * 100}%`;
 
-  state.realSide = Math.random() < .5 ? 'left' : 'right';
-  const aiSide = state.realSide === 'left' ? 'right' : 'left';
+  st.realSide = Math.random() < .5 ? 'left' : 'right';
+  const aiSide = st.realSide === 'left' ? 'right' : 'left';
 
-  ['left', 'right'].forEach(side => {
-    const card = document.getElementById('card-' + side);
-    const img  = document.getElementById('img-' + side);
-    const ldr  = document.getElementById('loader-' + side);
+  ['left','right'].forEach(s => {
+    const card = document.getElementById('card-' + s);
+    const img  = document.getElementById('img-' + s);
+    const ldr  = document.getElementById('ldr-' + s);
     card.className = 'img-card';
-    card.onclick = () => choose(side);
+    card.onclick = () => choose(s);
     img.style.display = 'none';
     ldr.style.display = 'flex';
   });
 
-  document.getElementById('img-' + state.realSide).src = data.real;
-  document.getElementById('img-' + aiSide).src = data.ai;
+  document.getElementById('img-' + st.realSide).src = data.real;
+  document.getElementById('img-' + aiSide).src      = data.ai;
 }
 
-function onImgLoad(side) {
+function imgReady(side) {
   document.getElementById('img-' + side).style.display = 'block';
-  document.getElementById('loader-' + side).style.display = 'none';
+  document.getElementById('ldr-' + side).style.display = 'none';
 }
 
 function choose(side) {
-  if (state.locked) return;
-  state.locked = true;
+  if (st.locked) return;
+  st.locked = true;
+  if (side === st.realSide) st.score++;
 
-  if (side === state.realSide) state.score++;
-
-  // Lock both cards
   ['left','right'].forEach(s => {
     document.getElementById('card-' + s).onclick = null;
     document.getElementById('card-' + s).classList.add('locked');
   });
-
-  // Highlight selected — WWTBAM lock-in style
   document.getElementById('card-' + side).classList.add('selected');
 
-  // Auto-advance
   setTimeout(() => {
-    state.round++;
-    if (state.round >= ROUNDS.length) {
-      document.getElementById('progress-fill').style.width = '100%';
-      document.getElementById('end-score').innerHTML = `${state.score}<sup>/${ROUNDS.length}</sup>`;
+    st.round++;
+    if (st.round >= ROUNDS.length) {
+      document.getElementById('prog-fill').style.width = '100%';
+      document.getElementById('end-score').innerHTML =
+        `${st.score}<span class="end-score-denom">/${ROUNDS.length}</span>`;
       show('screen-end');
     } else {
       loadRound();
