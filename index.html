@@ -3,166 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Real o AI? — Architettura di Interni</title>
+<title>Real o AI?</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --gold: #C9A84C;
-    --gold-dark: #9A7C34;
-    --gold-glow: rgba(201,168,76,0.35);
-    --bg: #000;
-    --surface: #0e0e0e;
-    --surface2: #1a1a1a;
-    --white: #f5f5f0;
-    --grey: #888;
-    --green: #3ecf6b;
-    --red: #e84c4c;
+    --bg:        #020d1c;
+    --navy:      #05193a;
+    --blue:      #0d3068;
+    --blue-mid:  #1a5bbf;
+    --gold:      #f0c040;
+    --orange:    #e08820;
+    --white:     #ffffff;
+    --dim:       rgba(255,255,255,0.45);
+  }
+
+  html, body {
+    height: 100%;
   }
 
   body {
     background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% 50%, #061d3a 0%, #020d1c 70%);
     color: var(--white);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding: 24px 16px 48px;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+    overflow-x: hidden;
   }
 
-  /* ── SCREEN TRANSITIONS ─────────────────────────────── */
-  .screen { display: none; width: 100%; max-width: 1100px; }
-  .screen.active { display: flex; flex-direction: column; align-items: center; }
+  /* ─── SCREENS ─────────────────────────────────────────── */
+  .screen { display: none; width: 100%; max-width: 960px; flex-direction: column; align-items: center; }
+  .screen.active { display: flex; }
 
-  /* ── INTRO SCREEN ───────────────────────────────────── */
-  #screen-intro { gap: 32px; padding-top: 80px; text-align: center; }
+  /* ─── INTRO ───────────────────────────────────────────── */
+  #screen-intro {
+    gap: 48px;
+    text-align: center;
+    animation: fadeIn .5s ease;
+  }
 
-  .logo-badge {
-    font-size: 11px;
-    letter-spacing: 4px;
+  .intro-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 5px;
     text-transform: uppercase;
     color: var(--gold);
-    border: 1px solid var(--gold-dark);
-    padding: 6px 18px;
-    border-radius: 2px;
   }
 
   .intro-title {
-    font-size: clamp(2.2rem, 6vw, 4rem);
-    font-weight: 700;
-    letter-spacing: -1px;
-    line-height: 1.1;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+    /* WWTBAM gold-to-white gradient on text */
+    background: linear-gradient(160deg, #ffffff 30%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .intro-subtitle {
-    font-size: 1.05rem;
-    color: var(--grey);
-    max-width: 480px;
-    line-height: 1.6;
-  }
-
-  .intro-rules {
-    display: flex;
-    gap: 32px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 8px;
-  }
-
-  .rule-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-
-  .rule-icon {
-    font-size: 1.8rem;
-  }
-
-  .btn-start {
-    background: var(--gold);
-    color: #000;
-    border: none;
-    padding: 18px 64px;
+  .intro-sub {
     font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-    transition: background 0.2s, transform 0.1s;
+    color: var(--dim);
+    letter-spacing: 0.5px;
   }
 
-  .btn-start:hover { background: #e0b85a; transform: scale(1.02); }
-  .btn-start:active { transform: scale(0.98); }
+  /* ─── WWTBAM BUTTON ───────────────────────────────────── */
+  .btn-wwtbam {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(180deg, #1a4fa8 0%, #0a2c6d 100%);
+    border: 2px solid #2a6dcc;
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 18px 56px;
+    cursor: pointer;
+    clip-path: polygon(16px 0%, calc(100% - 16px) 0%, 100% 50%, calc(100% - 16px) 100%, 16px 100%, 0% 50%);
+    transition: filter .2s, transform .1s;
+    text-shadow: 0 1px 4px rgba(0,0,0,.5);
+  }
 
-  /* ── GAME SCREEN ────────────────────────────────────── */
-  #screen-game { gap: 20px; }
+  .btn-wwtbam::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    clip-path: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
 
-  /* Progress bar */
-  .progress-wrap {
+  .btn-wwtbam:hover {
+    filter: brightness(1.25);
+    transform: scale(1.02);
+  }
+
+  .btn-wwtbam:active { transform: scale(0.98); }
+
+  /* ─── GAME ────────────────────────────────────────────── */
+  #screen-game { gap: 28px; }
+
+  /* Progress */
+  .top-bar {
     width: 100%;
-    max-width: 700px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
   }
 
-  .progress-label {
-    font-size: 0.7rem;
-    letter-spacing: 3px;
+  .round-counter {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold);
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
   }
 
-  .progress-bar-track {
+  .progress-track {
     width: 100%;
-    height: 3px;
-    background: var(--surface2);
-    border-radius: 2px;
-    overflow: hidden;
+    max-width: 600px;
+    height: 2px;
+    background: rgba(255,255,255,.1);
   }
 
-  .progress-bar-fill {
+  .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
-    transition: width 0.5s ease;
-    border-radius: 2px;
-  }
-
-  /* Round label */
-  .round-label {
-    font-size: clamp(0.75rem, 2vw, 0.85rem);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-
-  /* Question */
-  .question-text {
-    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    text-align: center;
-    max-width: 650px;
-  }
-
-  .question-sub {
-    font-size: 0.85rem;
-    color: var(--grey);
-    letter-spacing: 1px;
-    text-align: center;
+    background: linear-gradient(90deg, var(--blue-mid), var(--gold));
+    transition: width .6s ease;
   }
 
   /* Images grid */
@@ -170,396 +144,209 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 8px;
+    gap: 12px;
   }
 
+  /* WWTBAM answer card */
   .img-card {
     position: relative;
     cursor: pointer;
-    border-radius: 4px;
     overflow: hidden;
-    border: 3px solid transparent;
-    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
     aspect-ratio: 4/3;
-    background: var(--surface);
+    background: var(--blue);
+    /* WWTBAM hex-ish clipping — subtle angled corners */
+    clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 0, 100% 100%, 0 100%);
+    border: 2px solid #1a4b9c;
+    transition: border-color .15s, filter .15s;
   }
 
-  .img-card:hover:not(.locked) {
-    border-color: var(--gold);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 32px var(--gold-glow);
+  .img-card::after {
+    /* inner shine line */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,.07) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   .img-card img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     display: block;
-    transition: filter 0.3s;
+    transition: filter .3s;
   }
 
-  .img-card .choice-label {
+  /* Label A / B — WWTBAM style pill */
+  .card-label {
     position: absolute;
     bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.75);
-    color: var(--white);
-    font-size: 0.7rem;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    padding: 6px 16px;
-    border-radius: 2px;
-    white-space: nowrap;
-    transition: opacity 0.2s;
-    pointer-events: none;
-  }
-
-  /* Feedback states */
-  .img-card.correct {
-    border-color: var(--green) !important;
-    box-shadow: 0 0 0 4px rgba(62,207,107,0.25);
-  }
-
-  .img-card.wrong {
-    border-color: var(--red) !important;
-    box-shadow: 0 0 0 4px rgba(232,76,76,0.2);
-  }
-
-  .img-card.correct img { filter: brightness(0.85); }
-  .img-card.wrong img { filter: brightness(0.6) grayscale(0.3); }
-
-  .result-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    opacity: 0;
-    transition: opacity 0.25s;
-    pointer-events: none;
-  }
-
-  .img-card.correct .result-overlay,
-  .img-card.wrong .result-overlay { opacity: 1; }
-
-  /* Feedback bar */
-  .feedback-bar {
-    width: 100%;
-    max-width: 700px;
-    min-height: 56px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    gap: 16px;
-  }
-
-  .feedback-bar.show { opacity: 1; }
-  .feedback-bar.correct-bar { background: rgba(62,207,107,0.15); color: var(--green); border: 1px solid rgba(62,207,107,0.35); }
-  .feedback-bar.wrong-bar { background: rgba(232,76,76,0.12); color: var(--red); border: 1px solid rgba(232,76,76,0.3); }
-
-  .btn-next {
-    background: transparent;
+    left: 12px;
+    background: linear-gradient(180deg, #1a4fa8 0%, #0a2c6d 100%);
+    border: 1.5px solid #2a6dcc;
     color: var(--gold);
-    border: 1px solid var(--gold);
-    padding: 10px 28px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .btn-next:hover { background: var(--gold-glow); }
-
-  /* Score dots */
-  .score-dots {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--surface2);
-    border: 1px solid var(--surface2);
-    transition: background 0.3s, border-color 0.3s;
-  }
-
-  .dot.correct { background: var(--green); border-color: var(--green); }
-  .dot.wrong { background: var(--red); border-color: var(--red); }
-  .dot.current { border-color: var(--gold); }
-
-  /* Loading state */
-  .img-card .loader {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--surface);
     font-size: 0.7rem;
+    font-weight: 800;
     letter-spacing: 2px;
-    color: var(--grey);
-    text-transform: uppercase;
+    padding: 4px 12px;
+    clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0% 50%);
+    pointer-events: none;
   }
 
-  /* ── END SCREEN ─────────────────────────────────────── */
-  #screen-end {
-    gap: 28px;
-    padding-top: 60px;
-    text-align: center;
-    animation: slideUp 0.5s ease;
+  /* Hover state */
+  .img-card:not(.locked):hover {
+    border-color: var(--gold);
+    filter: brightness(1.08);
   }
 
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* Selected / locked — WWTBAM orange lock-in */
+  .img-card.selected {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 4px rgba(224,136,32,.25), inset 0 0 40px rgba(224,136,32,.15);
   }
 
-  .end-badge {
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
+  .img-card.selected img { filter: brightness(.85); }
 
-  .score-display {
-    font-size: clamp(4rem, 15vw, 8rem);
-    font-weight: 700;
-    line-height: 1;
-    color: var(--gold);
-    letter-spacing: -4px;
-  }
-
-  .score-display span {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    color: var(--surface2);
-    letter-spacing: -1px;
-  }
-
-  .end-title {
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
-    font-weight: 600;
-    max-width: 500px;
-  }
-
-  .end-subtitle {
-    font-size: 0.9rem;
-    color: var(--grey);
-    max-width: 400px;
-    line-height: 1.6;
-  }
-
-  .end-answers {
-    width: 100%;
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    text-align: left;
-  }
-
-  .answer-row {
+  /* Loader */
+  .img-loader {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 14px 18px;
-    background: var(--surface);
-    border-radius: 3px;
-    font-size: 0.85rem;
-  }
-
-  .answer-icon { font-size: 1.1rem; flex-shrink: 0; }
-  .answer-cat { color: var(--grey); font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
-  .answer-result { margin-left: auto; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
-  .answer-result.ok { color: var(--green); }
-  .answer-result.ko { color: var(--red); }
-
-  .btn-replay {
-    background: transparent;
-    color: var(--gold);
-    border: 1px solid var(--gold-dark);
-    padding: 16px 48px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    justify-content: center;
+    background: var(--navy);
+    font-size: 0.6rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-    margin-top: 8px;
+    color: var(--dim);
   }
 
-  .btn-replay:hover { background: var(--gold-glow); border-color: var(--gold); }
+  /* ─── END ─────────────────────────────────────────────── */
+  #screen-end {
+    gap: 36px;
+    text-align: center;
+    animation: fadeIn .6s ease;
+  }
 
-  /* ── MOBILE ─────────────────────────────────────────── */
-  @media (max-width: 640px) {
-    body { padding: 16px 12px 40px; }
+  .end-score {
+    font-size: clamp(5rem, 18vw, 9rem);
+    font-weight: 800;
+    letter-spacing: -4px;
+    line-height: 1;
+    background: linear-gradient(160deg, #ffffff 20%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-    .images-grid {
-      grid-template-columns: 1fr;
-    }
+  .end-score sup {
+    font-size: .35em;
+    letter-spacing: -1px;
+    -webkit-text-fill-color: rgba(255,255,255,.3);
+  }
 
+  .end-message {
+    font-size: clamp(.95rem, 2.5vw, 1.25rem);
+    color: var(--dim);
+    max-width: 480px;
+    line-height: 1.65;
+    letter-spacing: .2px;
+  }
+
+  /* ─── ANIMATIONS ──────────────────────────────────────── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MOBILE ──────────────────────────────────────────── */
+  @media (max-width: 580px) {
+    .images-grid { grid-template-columns: 1fr; }
     .img-card { aspect-ratio: 16/10; }
-
-    .feedback-bar {
-      flex-direction: column;
-      padding: 14px 18px;
-      gap: 12px;
-      text-align: center;
-    }
-
-    .intro-rules { gap: 20px; }
-    #screen-intro { padding-top: 40px; }
+    .intro-title { letter-spacing: -1px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ───────── INTRO ───────── -->
+<!-- INTRO -->
 <div id="screen-intro" class="screen active">
-  <div class="logo-badge">Workshop · IA × Architette Romane</div>
+  <p class="intro-eyebrow">Architettura di Interni</p>
   <h1 class="intro-title">Real o AI?</h1>
-  <p class="intro-subtitle">
-    Sei capace di distinguere una fotografia reale di interni da un'immagine generata dall'intelligenza artificiale?
-  </p>
-  <div class="intro-rules">
-    <div class="rule-item">
-      <span class="rule-icon">🖼️</span>
-      <span>6 domande</span>
-    </div>
-    <div class="rule-item">
-      <span class="rule-icon">👆</span>
-      <span>Clicca la foto reale</span>
-    </div>
-    <div class="rule-item">
-      <span class="rule-icon">🏆</span>
-      <span>Punteggio finale</span>
-    </div>
-  </div>
-  <button class="btn-start" onclick="startGame()">Inizia il Quiz</button>
+  <p class="intro-sub">Quale delle due è una fotografia?</p>
+  <button class="btn-wwtbam" onclick="startGame()">Inizia</button>
 </div>
 
-<!-- ───────── GAME ───────── -->
+<!-- GAME -->
 <div id="screen-game" class="screen">
-  <div class="progress-wrap">
-    <div class="progress-label">
-      <span id="round-counter">DOMANDA 1 DI 6</span>
-      <div class="score-dots" id="score-dots"></div>
-    </div>
-    <div class="progress-bar-track">
-      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+  <div class="top-bar">
+    <span class="round-counter" id="round-counter">1 / 6</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
     </div>
   </div>
-
-  <p class="round-label" id="category-label"></p>
-  <h2 class="question-text">Quale di queste due è una fotografia reale?</h2>
-  <p class="question-sub">Clicca sull'immagine che pensi sia stata scattata con una macchina fotografica.</p>
 
   <div class="images-grid" id="images-grid">
     <div class="img-card" id="card-left" onclick="choose('left')">
-      <div class="loader">Caricamento…</div>
-      <img id="img-left" src="" alt="" style="display:none" onload="imgLoaded('left')" />
-      <div class="result-overlay" id="overlay-left"></div>
-      <div class="choice-label">A</div>
+      <div class="img-loader" id="loader-left">·</div>
+      <img id="img-left" src="" alt="" style="display:none" onload="onImgLoad('left')">
+      <div class="card-label">A</div>
     </div>
     <div class="img-card" id="card-right" onclick="choose('right')">
-      <div class="loader">Caricamento…</div>
-      <img id="img-right" src="" alt="" style="display:none" onload="imgLoaded('right')" />
-      <div class="result-overlay" id="overlay-right"></div>
-      <div class="choice-label">B</div>
+      <div class="img-loader" id="loader-right">·</div>
+      <img id="img-right" src="" alt="" style="display:none" onload="onImgLoad('right')">
+      <div class="card-label">B</div>
     </div>
-  </div>
-
-  <div class="feedback-bar" id="feedback-bar">
-    <span id="feedback-text"></span>
-    <button class="btn-next" id="btn-next" onclick="nextRound()">Avanti →</button>
   </div>
 </div>
 
-<!-- ───────── END ───────── -->
+<!-- END -->
 <div id="screen-end" class="screen">
-  <div class="end-badge">Risultato finale</div>
-  <div class="score-display" id="final-score">0<span>/6</span></div>
-  <h2 class="end-title" id="end-title"></h2>
-  <p class="end-subtitle" id="end-subtitle"></p>
-  <div class="end-answers" id="end-answers"></div>
-  <button class="btn-replay" onclick="restartGame()">Rigioca</button>
+  <div class="end-score" id="end-score">0<sup>/6</sup></div>
+  <p class="end-message">non importa quale immagine sia stata generata con AI,<br>importa che ci hai dovuto pensare.</p>
+  <button class="btn-wwtbam" onclick="startGame()">Rigioca</button>
 </div>
 
 <script>
 const ROUNDS = [
   {
-    category: 'Composizione Simmetrica',
-    ai_img: 'images/04_simmetrica.png',
-    real_img: 'https://images.unsplash.com/photo-1757605327126-9baefea3348b?w=900&q=85&fit=crop',
-    real_credit: 'Clay Banks · Unsplash'
+    ai:   'images/04_simmetrica.png',
+    real: 'https://images.unsplash.com/photo-1757605327126-9baefea3348b?w=900&q=85&fit=crop'
   },
   {
-    category: 'Angolo Architettonico',
-    ai_img: 'images/05_angolo-architettonico.png',
-    real_img: 'https://images.unsplash.com/photo-1750639258774-9a714379a093?w=900&q=85&fit=crop',
-    real_credit: 'Rebecca Chandler · Unsplash'
+    ai:   'images/05_angolo-architettonico.png',
+    real: 'https://images.unsplash.com/photo-1750639258774-9a714379a093?w=900&q=85&fit=crop'
   },
   {
-    category: 'Attraverso la Soglia',
-    ai_img: 'images/06_attraverso-soglia.png',
-    real_img: 'https://images.unsplash.com/photo-1724765440530-e3954ac2e61d?w=900&q=85&fit=crop',
-    real_credit: 'Clay Banks · Unsplash'
+    ai:   'images/06_attraverso-soglia.png',
+    real: 'https://images.unsplash.com/photo-1724765440530-e3954ac2e61d?w=900&q=85&fit=crop'
   },
   {
-    category: 'High Angle',
-    ai_img: 'images/07_high-angle.png',
-    real_img: 'https://images.unsplash.com/photo-1727399535326-65e21b522ccb?w=900&q=85&fit=crop',
-    real_credit: 'szm 4 · Unsplash'
+    ai:   'images/07_high-angle.png',
+    real: 'https://images.unsplash.com/photo-1727399535326-65e21b522ccb?w=900&q=85&fit=crop'
   },
   {
-    category: 'Dettaglio Architettonico',
-    ai_img: 'images/09_dettaglio-architettonico.png',
-    real_img: 'https://images.unsplash.com/photo-1684846416931-dddf8cbfc2ad?w=900&q=85&fit=crop',
-    real_credit: 'Kevin Shek · Unsplash'
+    ai:   'images/09_dettaglio-architettonico.png',
+    real: 'https://images.unsplash.com/photo-1684846416931-dddf8cbfc2ad?w=900&q=85&fit=crop'
   },
   {
-    category: 'Macro Materiale',
-    ai_img: 'images/10_macro-materiale.png',
-    real_img: 'https://images.unsplash.com/photo-1637822412454-085098b4c8c0?w=900&q=85&fit=crop',
-    real_credit: 'Hans · Unsplash'
+    ai:   'images/10_macro-materiale.png',
+    real: 'https://images.unsplash.com/photo-1637822412454-085098b4c8c0?w=900&q=85&fit=crop'
   }
 ];
 
-let state = {
-  round: 0,
-  score: 0,
-  answers: [],
-  answered: false,
-  order: [],       // shuffled round indices
-  realSide: null   // 'left' or 'right' for each round
-};
+const state = { round: 0, score: 0, order: [], realSide: null, locked: false };
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
+function shuffle(a) {
+  const b = [...a];
+  for (let i = b.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+    [b[i], b[j]] = [b[j], b[i]];
   }
-  return a;
+  return b;
 }
 
-function showScreen(id) {
+function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
@@ -567,197 +354,69 @@ function showScreen(id) {
 function startGame() {
   state.round = 0;
   state.score = 0;
-  state.answers = [];
+  state.locked = false;
   state.order = shuffle([0,1,2,3,4,5]);
-  initDots();
-  showScreen('screen-game');
+  show('screen-game');
   loadRound();
 }
 
-function initDots() {
-  const dots = document.getElementById('score-dots');
-  dots.innerHTML = '';
-  for (let i = 0; i < ROUNDS.length; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' current' : '');
-    d.id = 'dot-' + i;
-    dots.appendChild(d);
-  }
-}
-
-function updateDot(idx, result) {
-  const d = document.getElementById('dot-' + idx);
-  if (d) {
-    d.classList.remove('current');
-    d.classList.add(result ? 'correct' : 'wrong');
-  }
-  const next = document.getElementById('dot-' + (idx + 1));
-  if (next) next.classList.add('current');
-}
-
 function loadRound() {
-  state.answered = false;
-  const roundIdx = state.round;
-  const dataIdx = state.order[roundIdx];
-  const data = ROUNDS[dataIdx];
+  state.locked = false;
+  const data = ROUNDS[state.order[state.round]];
+  const n = state.round + 1;
+  const total = ROUNDS.length;
 
-  // Update header
-  document.getElementById('round-counter').textContent =
-    `DOMANDA ${roundIdx + 1} DI ${ROUNDS.length}`;
-  document.getElementById('category-label').textContent = data.category;
-  document.getElementById('progress-fill').style.width =
-    `${(roundIdx / ROUNDS.length) * 100}%`;
+  document.getElementById('round-counter').textContent = `${n} / ${total}`;
+  document.getElementById('progress-fill').style.width = `${((n - 1) / total) * 100}%`;
 
-  // Decide random side for real photo
-  state.realSide = Math.random() < 0.5 ? 'left' : 'right';
+  state.realSide = Math.random() < .5 ? 'left' : 'right';
   const aiSide = state.realSide === 'left' ? 'right' : 'left';
 
-  // Reset cards
   ['left', 'right'].forEach(side => {
     const card = document.getElementById('card-' + side);
-    const img = document.getElementById('img-' + side);
-    const overlay = document.getElementById('overlay-' + side);
+    const img  = document.getElementById('img-' + side);
+    const ldr  = document.getElementById('loader-' + side);
     card.className = 'img-card';
     card.onclick = () => choose(side);
     img.style.display = 'none';
-    img.src = '';
-    overlay.textContent = '';
-    // Show loader
-    let loader = card.querySelector('.loader');
-    if (!loader) {
-      loader = document.createElement('div');
-      loader.className = 'loader';
-      loader.textContent = 'Caricamento…';
-      card.insertBefore(loader, img);
-    } else {
-      loader.style.display = 'flex';
-    }
+    ldr.style.display = 'flex';
   });
 
-  // Set images
-  document.getElementById('img-' + state.realSide).src = data.real_img;
-  document.getElementById('img-' + aiSide).src = data.ai_img;
-
-  // Hide feedback
-  const fb = document.getElementById('feedback-bar');
-  fb.className = 'feedback-bar';
-  fb.querySelector('#feedback-text').textContent = '';
+  document.getElementById('img-' + state.realSide).src = data.real;
+  document.getElementById('img-' + aiSide).src = data.ai;
 }
 
-function imgLoaded(side) {
-  const img = document.getElementById('img-' + side);
-  const card = document.getElementById('card-' + side);
-  img.style.display = 'block';
-  const loader = card.querySelector('.loader');
-  if (loader) loader.style.display = 'none';
+function onImgLoad(side) {
+  document.getElementById('img-' + side).style.display = 'block';
+  document.getElementById('loader-' + side).style.display = 'none';
 }
 
 function choose(side) {
-  if (state.answered) return;
-  state.answered = true;
+  if (state.locked) return;
+  state.locked = true;
 
-  const roundIdx = state.round;
-  const dataIdx = state.order[roundIdx];
-  const isCorrect = side === state.realSide;
+  if (side === state.realSide) state.score++;
 
   // Lock both cards
-  document.getElementById('card-left').classList.add('locked');
-  document.getElementById('card-right').classList.add('locked');
-  document.getElementById('card-left').onclick = null;
-  document.getElementById('card-right').onclick = null;
-
-  // Style chosen card
-  const chosen = document.getElementById('card-' + side);
-  chosen.classList.add(isCorrect ? 'correct' : 'wrong');
-  document.getElementById('overlay-' + side).textContent = isCorrect ? '✓' : '✗';
-
-  // Always reveal the real one
-  const realCard = document.getElementById('card-' + state.realSide);
-  if (!isCorrect) {
-    realCard.classList.add('correct');
-    document.getElementById('overlay-' + state.realSide).textContent = '✓';
-  }
-
-  // Update score and dots
-  if (isCorrect) state.score++;
-  state.answers.push({ dataIdx, correct: isCorrect });
-  updateDot(roundIdx, isCorrect);
-
-  // Feedback
-  const fb = document.getElementById('feedback-bar');
-  const data = ROUNDS[dataIdx];
-  if (isCorrect) {
-    fb.className = 'feedback-bar correct-bar show';
-    document.getElementById('feedback-text').textContent =
-      `✓ Esatto! La foto reale è quella ${state.realSide === 'left' ? 'di sinistra (A)' : 'di destra (B)'} — ${data.real_credit}`;
-  } else {
-    fb.className = 'feedback-bar wrong-bar show';
-    document.getElementById('feedback-text').textContent =
-      `✗ Sbagliato. La foto reale era quella ${state.realSide === 'left' ? 'di sinistra (A)' : 'di destra (B)'} — ${data.real_credit}`;
-  }
-
-  // Last round: change button text
-  if (roundIdx === ROUNDS.length - 1) {
-    document.getElementById('btn-next').textContent = 'Risultati →';
-  }
-}
-
-function nextRound() {
-  state.round++;
-  if (state.round >= ROUNDS.length) {
-    showEndScreen();
-  } else {
-    loadRound();
-  }
-}
-
-function showEndScreen() {
-  document.getElementById('progress-fill').style.width = '100%';
-
-  const s = state.score;
-  const total = ROUNDS.length;
-  document.getElementById('final-score').innerHTML = `${s}<span>/${total}</span>`;
-
-  let title, subtitle;
-  if (s === total) {
-    title = 'Occhio infallibile.';
-    subtitle = 'Hai riconosciuto ogni fotografia reale. La tua sensibilità visiva per l\'autenticità è straordinaria.';
-  } else if (s >= 4) {
-    title = 'Ottimo intuito.';
-    subtitle = `${s} risposte corrette su ${total}. Hai un buon occhio per cogliere le sfumature tra reale e generato.`;
-  } else if (s >= 2) {
-    title = 'Non è facile.';
-    subtitle = `${s} risposte corrette su ${total}. L'AI ha ingannato anche te — le architetture generate sono sempre più convincenti.`;
-  } else {
-    title = 'L\'AI ti ha battuto.';
-    subtitle = `Solo ${s} risposte corrette su ${total}. I render AI di interni sono ormai quasi indistinguibili dalla fotografia reale.`;
-  }
-
-  document.getElementById('end-title').textContent = title;
-  document.getElementById('end-subtitle').textContent = subtitle;
-
-  // Answer recap
-  const container = document.getElementById('end-answers');
-  container.innerHTML = '';
-  state.answers.forEach(({ dataIdx, correct }) => {
-    const data = ROUNDS[dataIdx];
-    const row = document.createElement('div');
-    row.className = 'answer-row';
-    row.innerHTML = `
-      <span class="answer-icon">${correct ? '✅' : '❌'}</span>
-      <div>
-        <div class="answer-cat">${data.category}</div>
-      </div>
-      <span class="answer-result ${correct ? 'ok' : 'ko'}">${correct ? 'Corretto' : 'Sbagliato'}</span>
-    `;
-    container.appendChild(row);
+  ['left','right'].forEach(s => {
+    document.getElementById('card-' + s).onclick = null;
+    document.getElementById('card-' + s).classList.add('locked');
   });
 
-  showScreen('screen-end');
-}
+  // Highlight selected — WWTBAM lock-in style
+  document.getElementById('card-' + side).classList.add('selected');
 
-function restartGame() {
-  startGame();
+  // Auto-advance
+  setTimeout(() => {
+    state.round++;
+    if (state.round >= ROUNDS.length) {
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('end-score').innerHTML = `${state.score}<sup>/${ROUNDS.length}</sup>`;
+      show('screen-end');
+    } else {
+      loadRound();
+    }
+  }, 1400);
 }
 </script>
 </body>
