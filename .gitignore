@@ -1,0 +1,10 @@
+# File locali del sistema operativo e degli editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporanei e log locali
+*.log
+.tmp/
+tmp/
