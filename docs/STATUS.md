@@ -4,6 +4,23 @@
 
 Mantenere il quiz attivo e riutilizzabile per futuri workshop, sviluppandolo dalla copia locale canonica fuori da OneDrive.
 
+## Quadro rapido del lavoro
+
+### Da fare
+
+- [ ] Revisionare la Pull Request in bozza `#1` e decidere se renderla pronta per il merge.
+- [ ] Unire in `master` soltanto dopo una nuova approvazione esplicita.
+- [ ] Dopo il merge, verificare il sito live prima di intervenire sulla copia precedente.
+- [ ] Dopo la verifica del sito, gestire la copia OneDrive con un passaggio separato e recuperabile.
+- [ ] Prima del prossimo workshop, rivalutare disponibilità e condizioni d'uso delle immagini reali esterne.
+
+### Completato e verificato
+
+- [x] Creata la copia canonica fuori da OneDrive a partire dal remote verificato.
+- [x] Normalizzato il progetto su un branch isolato e verificati script, immagini e servizio locale.
+- [x] Ottenuta la revisione indipendente di Claude Sonnet 4.6 tramite Anthropic diretto.
+- [x] Pubblicata la normalizzazione nella Pull Request in bozza `#1` senza modificare `master` o il sito live.
+
 ## Stato verificato
 
 - Repository GitHub pubblico: `https://github.com/JonathanLivingston86/archiviz-quiz`.
@@ -17,18 +34,12 @@ Mantenere il quiz attivo e riutilizzabile per futuri workshop, sviluppandolo dal
 - Il branch remoto `master` e il sito GitHub Pages non sono stati modificati.
 - La revisione indipendente con Claude Sonnet 4.6 tramite Anthropic diretto ha restituito `APPROVATO`, senza problemi di sicurezza o interoperabilità.
 
-## Problemi aperti
+## Rischi e vincoli
 
 - Le immagini reali sono dipendenze esterne: disponibilità e condizioni d'uso vanno rivalutate prima dei prossimi workshop.
 - La normalizzazione è pubblicata sul branch `agent/adotta-framework` nella Pull Request in bozza `#1`; `master` e il sito live restano invariati.
 - La copia OneDrive non deve essere rimossa finché la nuova copia e il flusso pubblico non sono stati convalidati e registrati.
 
-## Prossimi passi
-
-1. Revisionare la Pull Request in bozza `#1` e decidere separatamente se renderla pronta per il merge.
-2. Unire in `master` soltanto dopo una nuova approvazione esplicita e verificare il sito live.
-3. Dopo l'unione e la verifica del sito, gestire la copia precedente con un passaggio separato e recuperabile.
-
 ## Ultimo aggiornamento
 
-13 agosto 2026, Codex. Branch pubblicato e Pull Request `#1` aperta in bozza; `master` verificato al commit `002eb7b98d4b6b28998c9869ec08a28eae1c344e`.
+13 agosto 2026, Codex. Stato convertito nella checklist condivisa; branch pubblicato e Pull Request `#1` aperta in bozza, con `master` verificato al commit `002eb7b98d4b6b28998c9869ec08a28eae1c344e`.
