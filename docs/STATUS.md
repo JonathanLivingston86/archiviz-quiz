@@ -20,15 +20,15 @@ Mantenere il quiz attivo e riutilizzabile per futuri workshop, sviluppandolo dal
 ## Problemi aperti
 
 - Le immagini reali sono dipendenze esterne: disponibilità e condizioni d'uso vanno rivalutate prima dei prossimi workshop.
-- La normalizzazione del progetto è preparata e verificata su un branch locale, ma non è ancora pubblicata nel repository pubblico.
+- La normalizzazione è pubblicata sul branch `agent/adotta-framework` nella Pull Request in bozza `#1`; `master` e il sito live restano invariati.
 - La copia OneDrive non deve essere rimossa finché la nuova copia e il flusso pubblico non sono stati convalidati e registrati.
 
 ## Prossimi passi
 
-1. Pubblicare il branch, dopo approvazione esplicita, senza modificare direttamente `master` e il sito live.
-2. Revisionare la proposta di modifica e unire soltanto dopo le verifiche previste.
+1. Revisionare la Pull Request in bozza `#1` e decidere separatamente se renderla pronta per il merge.
+2. Unire in `master` soltanto dopo una nuova approvazione esplicita e verificare il sito live.
 3. Dopo l'unione e la verifica del sito, gestire la copia precedente con un passaggio separato e recuperabile.
 
 ## Ultimo aggiornamento
 
-12 agosto 2026, Codex. Normalizzazione locale preparata dal commit base `002eb7b98d4b6b28998c9869ec08a28eae1c344e`.
+13 agosto 2026, Codex. Branch pubblicato e Pull Request `#1` aperta in bozza; `master` verificato al commit `002eb7b98d4b6b28998c9869ec08a28eae1c344e`.
