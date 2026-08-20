@@ -26,7 +26,7 @@ Mantenere la risorsa interattiva attiva e riutilizzabile per futuri workshop, sv
 - Repository GitHub pubblico: `https://github.com/JonathanLivingston86/archiviz-quiz`.
 - Sito pubblico attivo: `https://jonathanlivingston86.github.io/archiviz-quiz/`.
 - GitHub Pages pubblica la radice del branch `master`.
-- La copia canonica è sul branch `master` al commit pubblicato `4813404f8632a190313ac6119e591242f3820dd7`.
+- La copia canonica è sul branch `master`, allineata a `origin/master`; l'adozione del framework è stata introdotta dal merge `4813404f8632a190313ac6119e591242f3820dd7`.
 - Il quiz è composto da un file HTML, sei immagini AI locali e sei immagini reali caricate da Unsplash.
 - La precedente copia OneDrive è nel Cestino ed è ancora recuperabile; il percorso originale non è più presente.
 - La normalizzazione è registrata localmente nel commit `862148eb64a632eebbd6cc838dfc88ffeeaec764` sul branch isolato `agent/adotta-framework`.
