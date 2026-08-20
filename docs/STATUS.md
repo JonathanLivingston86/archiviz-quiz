@@ -8,8 +8,7 @@ Mantenere la risorsa interattiva attiva e riutilizzabile per futuri workshop, sv
 
 ### Da fare
 
-- [ ] Revisionare la Pull Request in bozza `#1` e decidere se renderla pronta per il merge.
-- [ ] Unire in `master` soltanto dopo una nuova approvazione esplicita.
+- [ ] Con approvazione esplicita, rendere pronta la Pull Request `#1` e unirla in `master`.
 - [ ] Dopo il merge, verificare il sito live prima di intervenire sulla copia precedente.
 - [ ] Dopo la verifica del sito, gestire la copia OneDrive con un passaggio separato e recuperabile.
 - [ ] Prima del prossimo workshop, rivalutare disponibilità e condizioni d'uso delle immagini reali esterne.
@@ -21,6 +20,7 @@ Mantenere la risorsa interattiva attiva e riutilizzabile per futuri workshop, sv
 - [x] Ottenuta la revisione indipendente di Claude Sonnet 4.6 tramite Anthropic diretto.
 - [x] Pubblicata la normalizzazione nella Pull Request in bozza `#1` senza modificare `master` o il sito live.
 - [x] Riclassificato e ricollocato come risorsa di `workshop-ai-per-architette`, preservando commit `863cfb4`, branch `agent/adotta-framework`, remote GitHub e sito pubblico; il server locale dal nuovo percorso ha risposto HTTP 200.
+- [x] Revisionata integralmente la Pull Request `#1` rispetto a `master`: assi Standards e Spec entrambi PASS con zero rilievi; completati nel browser sei round, caricamento delle dodici immagini, schermata finale e riavvio senza errori. Verdetto: pronta per il merge, subordinatamente all'approvazione esplicita di Andrea. Prova: rapporto del 20 agosto 2026 in `_SISTEMA\REGISTRI\AUDIT`.
 
 ## Stato verificato
 
@@ -43,4 +43,4 @@ Mantenere la risorsa interattiva attiva e riutilizzabile per futuri workshop, sv
 
 ## Ultimo aggiornamento
 
-20 agosto 2026, Codex. Risorsa ricollocata sotto il progetto proprietario senza cambiare cronologia Git o pubblicazione; Pull Request `#1` ancora in bozza.
+20 agosto 2026, Codex. Pull Request `#1` revisionata e approvata tecnicamente; resta in bozza fino all'approvazione esplicita del merge.
