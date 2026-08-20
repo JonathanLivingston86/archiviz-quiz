@@ -1,6 +1,6 @@
 # Real o AI?
 
-Quiz visuale per distinguere immagini architettoniche reali da immagini generate con intelligenza artificiale.
+Risorsa visuale del progetto `workshop-ai-per-architette` per distinguere immagini architettoniche reali da immagini generate con intelligenza artificiale. Il repository e il sito pubblico restano tecnicamente separati.
 
 Il sito pubblico è disponibile su:
 
@@ -14,7 +14,7 @@ https://jonathanlivingston86.github.io/archiviz-quiz/
 
 ## Esecuzione locale
 
-Il progetto non richiede installazione o build. Per una prova affidabile, dalla radice eseguire:
+La risorsa non richiede installazione o build. Per una prova affidabile, dalla radice eseguire:
 
 ```powershell
 python -m http.server 8000

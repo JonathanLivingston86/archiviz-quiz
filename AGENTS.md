@@ -3,11 +3,12 @@
 ## Obiettivo e confini
 
 - Mantieni un quiz semplice, immediato e utilizzabile durante workshop dal vivo.
+- Considera questo repository una risorsa del progetto `workshop-ai-per-architette`, non un progetto autonomo sul piano organizzativo; conserva comunque il proprio confine Git e la propria pubblicazione.
 - Leggi `README.md` per il funzionamento e `docs/STATUS.md` per lo stato corrente.
 - Prima di modifiche non banali, spiega in italiano semplice obiettivo, motivazione, rischi e controlli.
 - Definisci acronimi e termini tecnici alla prima occorrenza.
 
-## Mappa del progetto
+## Mappa della risorsa
 
 - `index.html`: contiene HTML, CSS e JavaScript del quiz.
 - `images/`: contiene le immagini AI locali.
@@ -18,7 +19,7 @@
 - Il branch `master` alimenta il sito pubblico tramite GitHub Pages: non pubblicare direttamente modifiche non verificate.
 - Usa un branch separato e una revisione prima dell'unione in `master`.
 - Non inserire dati personali, credenziali, percorsi locali o regole private nel repository pubblico.
-- Mantieni il progetto senza build e senza dipendenze finché non esiste un vantaggio concreto nel cambiarlo.
+- Mantieni la risorsa senza build e senza dipendenze finché non esiste un vantaggio concreto nel cambiarla.
 - Non rinominare o sostituire immagini senza aggiornare e verificare tutti i riferimenti in `index.html`.
 - Considera gli URL Unsplash una dipendenza esterna: il quiz può degradarsi se non sono raggiungibili o cambiano comportamento.
 - Mantieni temporanei, log e file degli editor fuori dal repository.

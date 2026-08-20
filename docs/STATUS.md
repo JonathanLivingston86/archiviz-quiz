@@ -2,7 +2,7 @@
 
 ## Obiettivo corrente
 
-Mantenere il quiz attivo e riutilizzabile per futuri workshop, sviluppandolo dalla copia locale canonica fuori da OneDrive.
+Mantenere la risorsa interattiva attiva e riutilizzabile per futuri workshop, sviluppandola dalla copia locale canonica fuori da OneDrive.
 
 ## Quadro rapido del lavoro
 
@@ -20,6 +20,7 @@ Mantenere il quiz attivo e riutilizzabile per futuri workshop, sviluppandolo dal
 - [x] Normalizzato il progetto su un branch isolato e verificati script, immagini e servizio locale.
 - [x] Ottenuta la revisione indipendente di Claude Sonnet 4.6 tramite Anthropic diretto.
 - [x] Pubblicata la normalizzazione nella Pull Request in bozza `#1` senza modificare `master` o il sito live.
+- [x] Riclassificato e ricollocato come risorsa di `workshop-ai-per-architette`, preservando commit `863cfb4`, branch `agent/adotta-framework`, remote GitHub e sito pubblico; il server locale dal nuovo percorso ha risposto HTTP 200.
 
 ## Stato verificato
 
@@ -42,4 +43,4 @@ Mantenere il quiz attivo e riutilizzabile per futuri workshop, sviluppandolo dal
 
 ## Ultimo aggiornamento
 
-13 agosto 2026, Codex. Stato convertito nella checklist condivisa; branch pubblicato e Pull Request `#1` aperta in bozza, con `master` verificato al commit `002eb7b98d4b6b28998c9869ec08a28eae1c344e`.
+20 agosto 2026, Codex. Risorsa ricollocata sotto il progetto proprietario senza cambiare cronologia Git o pubblicazione; Pull Request `#1` ancora in bozza.
